@@ -5,9 +5,9 @@ Configure iptables for Linux systems
 
 Role Variables
 --------------
-ip_forward: Enables or disables ip forwarding default value: 1
+**ip_forward:** Enables or disables ip forwarding default value: 1
 
-incoming: Dictionary variable that dfines the ports and names for each service, these ports will be allowed for incoming requests, the default value:
+**incoming:** Dictionary variable that dfines the ports and names for each service, these ports will be allowed for incoming requests, the default value:
 
 ```
 incoming:
@@ -19,7 +19,7 @@ incoming:
     port: 443
 ```
 
-outgoing: Dictionary variable that dfines the ports and names for each service, these ports will be allowed for outgoing requests, the default value:
+**outgoing:** Dictionary variable that dfines the ports and names for each service, these ports will be allowed for outgoing requests, the default value:
 
 ```
 outgoing:
