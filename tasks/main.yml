@@ -1,18 +1,30 @@
 ---
 - name: Add iptables init script
-  copy: src=iptables dest=/etc/init.d/iptables mode=0700
+  copy: src=iptables_init dest=/etc/init.d/iptables mode=0700
+
+- name: Create a directory for iptables
+  file: path=/opt/spirula/firewall recurse=yes state=directory owner=root group=root mode=0700
 
 - name: Add iptables script
-  template: src=iptables_script.sh dest=/root/iptables_script.sh mode=0700
+  template: src=iptables_rules.sh dest=/opt/spirula/firewall/iptables_rules.sh mode=0700
+
+- name: Add rollback script
+  copy: src=iptables_rollback.sh dest=/opt/spirula/firewall/iptables_rollback.sh mode=0700
 
 - name: Enable iptables init script
-  command: update-rc.d iptables defaults
+  service: name=iptables enabled=yes
 
 - name: Create /var/lib/iptables
   file: path=/var/lib/iptables state=directory
+
+- name: Schedule rollback script
+  at: command="/opt/spirula/firewall/iptables_rollback.sh" count=3 units="minutes"
 
 - name: Save iptables
   command: /etc/init.d/iptables save inactive
 
 - name: Run iptables script
-  command: /root/iptables_script.sh
+  command: /opt/spirula/firewall/iptables_rules.sh
+
+- name: Remove the scheduled rollback
+  at: command="/opt/spirula/firewall/iptables_rollback.sh" state=absent

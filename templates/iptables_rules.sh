@@ -1,8 +1,8 @@
 #!/bin/bash
 PATH="/bin:/sbin:/usr/sbin"
 
-#Define Some Variables:
-#======================
+# Define Some Variables:
+#=======================
 
 # Initialization:
 #================
@@ -21,13 +21,13 @@ iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
-## Allow all connections on loopback interface:
-##=============================================
+# Allow all connections on loopback interface:
+#=============================================
 iptables -A INPUT  -i lo -j ACCEPT
 iptables -A OUTPUT -o lo -j ACCEPT
 
-## Allow Incoming/outgoing Pings:
-#================================
+# Allow Incoming/outgoing Pings:
+#===============================
 # Incoming:
 #----------
 iptables -A INPUT  -p icmp --icmp-type echo-request -j ACCEPT
@@ -37,8 +37,8 @@ iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
 iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
 iptables -A INPUT  -p icmp --icmp-type echo-reply -j ACCEPT
 
-## Outgoing Connections:
-##======================
+# Outgoing Connections:
+#======================
 
 # DNS resolving:
 #===============
@@ -61,11 +61,6 @@ iptables -A INPUT   -p {{ service.protocol | default('tcp') }} {{ '-s '+service.
 iptables -A INPUT  -p {{ service.protocol | default('tcp') }} {{ '-s '+service.source if service.source is defined else '' }} --dport {{ service.port }}  -j ACCEPT
 iptables -A OUTPUT -p {{ service.protocol | default('tcp') }} {{ '-d '+service.source if service.source is defined else '' }} --sport {{ service.port }}  {{ '' if service.protocol is defined and service.protocol == 'udp' else '! --syn ' }} -j ACCEPT
 {% endfor %}
-
-##Allow NTP
-##=========
-iptables -A OUTPUT -p udp --dport 123 -j ACCEPT
-iptables -A INPUT -p udp --sport 123 -j ACCEPT
 
 # Save active ruleset:
 #=====================

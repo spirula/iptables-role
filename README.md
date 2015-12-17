@@ -7,7 +7,7 @@ Role Variables
 --------------
 **ip_forward:** Enables or disables ip forwarding default value: 1
 
-**incoming:** Dictionary variable that dfines the ports and names for each service, these ports will be allowed for incoming requests, the default value:
+**incoming:** Dictionary variable that defines the ports and names for each service, these ports will be allowed for incoming requests, the default value:
 
 ```
 incoming:
@@ -19,7 +19,7 @@ incoming:
     port: 443
 ```
 
-**outgoing:** Dictionary variable that dfines the ports and names for each service, these ports will be allowed for outgoing requests, the default value:
+**outgoing:** Dictionary variable that defines the ports and names for each service, these ports will be allowed for outgoing requests, the default value:
 
 ```
 outgoing:
@@ -46,6 +46,6 @@ MIT
 Author Information
 ------------------
 
-This role was created by the admins team in spirula systems company
+This role was created by the operations team in spirula systems company
 
 company website: http://www.spirulasystems.com/
