@@ -1,4 +1,5 @@
 ---
+scripts_path: /opt/spirula
 ip_forward: 0 #Enable IP forwarding
 # Incoming Ports
 incoming:
